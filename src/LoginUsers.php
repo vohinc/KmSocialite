@@ -5,6 +5,7 @@ namespace Voh\KmSocialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Voh\KmSocialite\Exceptions\DenyException;
 
 /**
  * Trait LoginUsers
@@ -37,11 +38,15 @@ trait LoginUsers
         /** @var \Laravel\Socialite\Two\User $rawUser */
         $rawUser = Socialite::driver('km')->user();
 
-        $user = $this->performLogin($rawUser);
+        try {
+            $user = $this->performLogin($rawUser);
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect(session('url.intended', $this->redirectPath()));
+            return response()->json($user)->header('Authorization', "Bearer: {$rawUser->token}");
+        } catch (DenyException $ex) {
+            return response()->json([], 404);
+        }
     }
 
     /**

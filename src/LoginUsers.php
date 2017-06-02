@@ -43,7 +43,7 @@ trait LoginUsers
 
             Auth::login($user);
 
-            return response()->json($user)->header('Authorization', "Bearer: {$rawUser->token}");
+            return response()->json($user)->header('Authorization', "Bearer: {$user->getApiToken()}");
         } catch (DenyException $ex) {
             return response()->json([], 404);
         }

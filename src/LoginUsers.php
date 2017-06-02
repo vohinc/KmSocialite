@@ -63,7 +63,7 @@ trait LoginUsers
 
         $request->session()->regenerate();
 
-        return redirect('/');
+        return response()->json([], 201);
     }
 
     /**

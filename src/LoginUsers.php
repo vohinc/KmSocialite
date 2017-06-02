@@ -39,11 +39,9 @@ trait LoginUsers
         $rawUser = Socialite::driver('km')->user();
 
         try {
-            $user = $this->performLogin($rawUser);
+            $token = $this->performLogin($rawUser);
 
-            Auth::login($user);
-
-            return response()->json($user)->header('Authorization', "Bearer: {$user->getApiToken()}");
+            return response()->json([])->header('Authorization', "Bearer: {$token}");
         } catch (DenyException $ex) {
             return response()->json([], 404);
         }

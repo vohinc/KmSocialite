@@ -13,13 +13,6 @@ use Laravel\Socialite\Facades\Socialite;
 trait LoginUsers
 {
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    /**
      * Create a new controller instance.
      *
      */
@@ -48,7 +41,7 @@ trait LoginUsers
 
         Auth::login($user);
 
-        return redirect(session('url.intended', $this->redirectTo));
+        return redirect(session('url.intended', $this->redirectPath()));
     }
 
     /**
@@ -66,5 +59,15 @@ trait LoginUsers
         $request->session()->regenerate();
 
         return redirect('/');
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    private function redirectPath()
+    {
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
     }
 }

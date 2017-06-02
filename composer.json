@@ -1,8 +1,10 @@
 {
     "name": "vohinc/km-socialite",
     "type": "library",
+    "description": "KM socialite plugin",
     "require": {
-        "laravel/socialite": "^3.0"
+        "laravel/socialite": "^3.0",
+        "illuminate/routing": "^5.4"
     },
     "authors": [
         {

@@ -16,5 +16,12 @@
         "psr-4": {
             "Voh\\KmSocialite\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Voh\\KmSocialite\\KmSocialiteServiceProvider"
+            ]
+        }
     }
 }
